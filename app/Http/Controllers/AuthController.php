@@ -62,7 +62,6 @@ class AuthController extends Controller
                 'username' => $user->username,
             ]
             ]);
-            
         //ridirect home
         return redirect()->to('/');
     }
