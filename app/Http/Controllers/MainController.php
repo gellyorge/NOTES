@@ -22,6 +22,7 @@ class MainController extends Controller
     //show new note view
     return view('new_note');
    }
+
    public function newNoteSubmit(Request $request)
    {
       //validade request
@@ -60,7 +61,12 @@ class MainController extends Controller
 
    public function editNote($id){
       $id = Operation::decryptId($id);
-      echo $id;
+      
+      //load note
+      $note = Note::find($id);
+
+      //shod edit note view
+      return view('edit_note', ['note' => $note]);
    }
 
     
