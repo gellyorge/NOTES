@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\Operation;
 
 class MainController extends Controller
 {
@@ -20,6 +21,9 @@ class MainController extends Controller
    }
 
    public function editNote($id){
-      
+      $id = Operation::decryptId($id);
+      echo $id;
    }
+
+    
 }
