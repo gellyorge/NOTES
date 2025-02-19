@@ -32,15 +32,16 @@
                              @error('text_title')
                              <div class="text-danger"> {{$message}}</div>
                              @enderror
-                            <input type="text" class="form-control bg-primary text-white" name="text_title">
-                             {{--show error--}}
-                             @error('text_note')
-                             <div class="text-danger"> {{$message}}</div>
-                             @enderror
+                            <input type="text" class="form-control bg-primary text-white" name="text_title" value="{{ old('text_title')}}">
+                             
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Note Text</label>
-                            <textarea class="form-control bg-primary text-white" name="text_note" rows="5"></textarea>
+                            {{--show error--}}
+                            @error('text_note')
+                            <div class="text-danger"> {{$message}}</div>
+                            @enderror
+                            <textarea class="form-control bg-primary text-white" name="text_note" rows="5" >{{ old('text_note')}}</textarea>
                         </div>
                     </div>
 
