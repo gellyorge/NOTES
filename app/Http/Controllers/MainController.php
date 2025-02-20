@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Models\User;
 use App\Services\Operation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
 {
@@ -33,17 +34,14 @@ class MainController extends Controller
         // rules
         [
             'text_title' => 'required|min:3|max:200',
-            'text_note' => 'required|min:3|max:3000'
+            'text_note' => 'max:3000'
         ],
         // error messages
         [
             'text_title.required' => 'O titulo e obrigatorio',
-            'text_note.required' => 'A nota e obrigatorio',
 
              'text_title.min' => 'O titulo deve ter no minimo :min caracteres',
             'text_title.max' => 'O titulo deve ter no maximo :max caracteres',
-
-            'text_note.min' => 'A nota deve ter no minimo :min caracteres',
             'text_note.max' => 'A nota deve ter no maximo :max caracteres'
 
            
@@ -79,17 +77,14 @@ class MainController extends Controller
          // rules
          [
              'text_title' => 'required|min:3|max:200',
-             'text_note' => 'required|min:3|max:3000'
+             'text_note' => 'max:3000'
          ],
          // error messages
          [
              'text_title.required' => 'O titulo e obrigatorio',
-             'text_note.required' => 'A nota e obrigatorio',
  
               'text_title.min' => 'O titulo deve ter no minimo :min caracteres',
              'text_title.max' => 'O titulo deve ter no maximo :max caracteres',
- 
-             'text_note.min' => 'A nota deve ter no minimo :min caracteres',
              'text_note.max' => 'A nota deve ter no maximo :max caracteres'
  
          ]);
@@ -140,5 +135,30 @@ class MainController extends Controller
       //redirect to home
       return redirect()->route('home');
    }
+
+   public function changePassword(){
+      return view('changePassword');
+   }
+
+   public function changePasswordSubmit(Request $request){
+      $id = session('user.id');
+      $request->validate(
+         // rules
+         [
+             'text_password' => 'required|min:6|max:16'
+         ],
+         // error messages
+         [
+             'text_password.required' => 'A password e obrigatorio',
+             'text_password.min' => 'A password deve ter no minimo :min caracteres',
+             'text_password.max' => 'A password deve ter no maximo :max caracteres'
+         ]
+     );
+      $user = User::find($id);
+      $user->password = Hash::make($request->text_password);
+      $user->save();
+      return redirect()->to('/');
+   }
+
     
 }
