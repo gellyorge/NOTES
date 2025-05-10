@@ -26,5 +26,9 @@ Route::middleware([CheckIsLogged::class])->group(function(){
     Route::get('/deleteNote/{id}',[MainController::class, 'deleteNote'])->name('delete');
     Route::get('/deleteNoteConfirm/{id}', [MainController::class, 'deleteConfirm'])->name('deleteConfirm');
 
+    //change password
+    Route::get('/changePassword',[MainController::class, 'changePassword'])->name('changePassword');
+    Route::post('/changePasswordSubmit',[MainController::class, 'changePasswordSubmit'])->name('changePasswordSubmit');
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
